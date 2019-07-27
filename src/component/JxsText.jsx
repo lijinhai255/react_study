@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import logo from "../logo.svg";
 import style from "../index.module.css";
 export default class componentName extends Component {
+    
     render() {
         const name = "react study";
         const user = { firstName: "tom", lastName: "jerry" };

@@ -1,11 +1,13 @@
 import React from 'react';
 import JxsText from "./component/JxsText"
 import StateMgt from './component/StateMgt';
-function App() {
+import EventHandle from './component/EventHandle';
+import ScrollingList from './component/ScrollingList';
+
+function App(props) {
   return (
     <div className="App">
-      {/* <JxsText></JxsText> */}
-      <StateMgt/>
+      <ScrollingList/>
     </div>
   );
 }
