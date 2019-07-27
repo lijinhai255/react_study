@@ -1,4 +1,5 @@
 import React from 'react'
+import { func } from 'prop-types';
 
 //1 创建上下文 context 传值
 const Context = React.createContext()
@@ -6,34 +7,49 @@ const Context = React.createContext()
 const Provider = Context.Provider
 const Consumer = Context.Consumer
 
+// function withContent(Comp){
+//     return function(props){
+//         const content = lessons[props.idx]
+//         return <Comp {...content} />
+//     }
+// }
 
-function Child(props) {
-    return (
-        <div onClick={()=>props.add() }>
-            {props.counter}
-        </div>
-    )
+//withConsumer 高阶组件 根据配置返回一个高阶组件
+function WithConsumer(Consumer) {
+    return Comp => props => {
+        return <Consumer>{value => <Comp {...value}></Comp>}</Consumer>
+    }
 }
+//
+const Child = WithConsumer(Consumer)(
+    function(props){
+        return (
+            <div onClick={() => props.add()}>
+                {props.counter}
+            </div>
+        )
+    }
+)
 
 
-export default class ContextText extends React.Component  {
+
+
+export default class ContextText extends React.Component {
 
     state = {
-        counter:0
+        counter: 0
     }
-    add =()=>{
-        this.setState({ counter:this.state.counter+1})
+    add = () => {
+        this.setState({ counter: this.state.counter + 1 })
     }
 
-    render(){
+    render() {
         return (
-            <Provider value={{counter:this.state.counter,add:this.add}}>
-                <Consumer>
-                    {value=><Child {...value}></Child>}
-                </Consumer>
-                <Consumer>
-                    {value=><Child {...value}></Child>}
-                </Consumer>
+            <Provider value={{ counter: this.state.counter, add: this.add }}>
+               <Child/>
+               <Child/>
+               <Child/>
+               <Child/>
             </Provider>
         )
     }
